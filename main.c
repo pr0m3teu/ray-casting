@@ -14,7 +14,7 @@
 #define RADIUS       10.0f
 #define EPS          1e-6
 #define MAX_DIST     10
-#define FOV          360.0f
+#define FOV          480.0f
 
 
 #define grid_at(grid, i, j) grid.items[(int)i*grid.cols+(int)j] 
@@ -113,7 +113,7 @@ Vector2 get_line_eq(Vector2 p1, Vector2 p2)
 bool check_collision(Vector2 p, Grid grid)
 {
      if (p.x < GRID_SIZE && p.y < GRID_SIZE && p.x > 0 && p.y > 0){
-        if (grid_at(grid, (int)floorf(p.y), (int)p.x) != 0) return 1;
+        if (grid_at(grid, (int)floorf(p.y), (int)floorf(p.x)) != 0) return 1;
      }
     return 0;
 
@@ -145,7 +145,7 @@ Vector2 step_ray(Vector2 p1, Vector2 p2)
             y3 = snap(p2.y, dy);
             x3 = (y3-n)/m;
             Vector2 p3y = {x3, y3};
-            if (Vector2DistanceSqr(p2, p3y) < Vector2DistanceSqr(p2, p3)) p3 = p3y;
+            if (Vector2DistanceSqr(p2, p3y) <= Vector2DistanceSqr(p2, p3)) p3 = p3y;
         }
 
     }
